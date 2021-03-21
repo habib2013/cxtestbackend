@@ -198,29 +198,20 @@ public function savingsVault(Request $request){
 }
 
 public function getTotalSavings(Request $request,$email){
-    $getDetails= DB::select( DB::raw("SELECT amount FROM savings WHERE userMail = :email"), array(
+    $getDetails= DB::select( DB::raw("SELECT * FROM savings WHERE userMail = :email"), array(
         'email' => $email,
       ));
 
-$cummlativeAmount = 0;
-for($i=0;$getDetails.length;$i++){
-    return response()->json([
-        'message'=> 'success',
-        'data' => $getDetails
-    ]);
-
-}
-
-    //   if ($getDetails) {
-    //       return response()->json([
-    //           'message'=> 'success',
-    //           'data' => $getDetails
-    //       ],200);
-    //   }else {
-    //       return response()->json([
-    //           'message' => 'error'
-    //       ],404);
-    //   }
+       if ($getDetails) {
+         return response()->json([
+               'message'=> 'success',
+             'data' => $getDetails
+         ],200);
+          }else {
+         return response()->json([
+              'message' => 'error'
+           ],404);
+       }
 }
 
 }
