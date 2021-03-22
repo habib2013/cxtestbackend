@@ -13,9 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-
         Commands\WordOfTheDay::class,
         Commands\AutoDebitCard::class,
+        // Commands\AutoCreditCard::class,
     ];
 
     /**
@@ -29,6 +29,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
         $schedule->command('word:day')->everyMinute();
         $schedule->command('autodebit:card')->dailyAt('13:00');
+        // $schedule->command('autocredit:card')->dailyAt('13:00');
     }
 
     /**

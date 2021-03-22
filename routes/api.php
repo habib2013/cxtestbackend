@@ -33,6 +33,8 @@ Route::post('updateUserWallet',[UserwalletController::class,'updateUserWallet'])
 Route::post('saveReceipientData',[UserwalletController::class,'saveReceipientData']);
 Route::post('saveTransactionCard',[UserwalletController::class,'saveTransactionCard']);
 Route::post('savingsVault',[UserwalletController::class,'savingsVault']);
+Route::post('saveBenefits',[UserwalletController::class,'saveBenefits']);
+
 Route::get('getTotalSavings/{email}',[UserwalletController::class,'getTotalSavings']);
 Route::get('calculateInterestWithDate',[UserwalletController::class,'calculateInterestWithDate']);
 Route::get('getUserWallet/{id}',[UserwalletController::class,'getUserWallet']);

@@ -9,6 +9,7 @@ use App\Models\userWallet;
 use App\Models\Cardauth;
 use App\Models\Bankaccounts;
 use App\Models\Savings;
+use App\Models\Benefits;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -161,18 +162,7 @@ public function calculateInterestWithDate(Request $request){
     $mytime = Carbon::now();
     $nextTenDays = Carbon::now()->addDays(10);
 
-  for($i = 1;$i<=10;$i++)
-    {
 
-        return response()->json([
-            'day10' => $mytime->addDays(10)->toDateTimeString(),
-            'day1$i' => $mytime->addDays($i)->toDateTimeString(),
-            'day12' => $mytime->addDays($i)->toDateTimeString(),
-            'day13' => $mytime->addDays($i)->toDateTimeString(),
-            'day14' => $mytime->addDays($i)->toDateTimeString(),
-            'day15' => $mytime->addDays($i)->toDateTimeString()
-        ]);
-    }
 
 
     // echo $mytime->toDateTimeString();
@@ -213,5 +203,20 @@ public function getTotalSavings(Request $request,$email){
            ],404);
        }
 }
+
+public function saveBenefits(Request $request){
+
+    $input = $request->all();
+  $created =  Benefits::create($input);
+
+  if ($created) {
+    return response()->json([
+        'message' => 'success',
+    ]);
+  }
+
+
+}
+
 
 }

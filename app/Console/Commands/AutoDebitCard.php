@@ -44,47 +44,69 @@ class AutoDebitCard extends Command
      */
     public function handle()
     {
-//chosen date you want to the system to autodebit your card
-    $mytime = Carbon::now()->toDateString();
+// *****auto debit in respect to the amount in table ****
+// check if the
 
-    $payback= DB::select( DB::raw("SELECT * FROM savings WHERE payback_date = :payback_date"), array(
-    'payback_date' => $mytime,
-    ));
+        $mytime = Carbon::now()->toDateString();
 
+        $howoften = 'Daily';
+        $howoftenWeekly = 'Weekly';
+        $howoftenMonthly = 'Monthly';
 
-        // print_r($payback);
+        $howoftenResult= DB::select( DB::raw("SELECT * FROM savings WHERE howoften = :howoften"), array(
+        'howoften' => $howoften,
+        ));
+        $howoftenResultWeekly= DB::select( DB::raw("SELECT * FROM savings WHERE howoften = :howoften"), array(
+            'howoften' => $howoftenWeekly,
+            ));
 
-        if ($payback) {
+        if ($howoftenResult) {
+            for($i = 0;$i < count($howoftenResult);$i++){
+                $mydec =  $howoftenResult[$i]->created_at;
+                $interest = $howoftenResult[$i]->interest;
+                $payback_date = $howoftenResult[$i]->payback_date;
+                $amount = $howoftenResult[$i]->amount;
+                $title = $howoftenResult[$i]->title;
+                $mymail = $howoftenResult[$i]->userMail;
+                $calculatedBenefits = $howoftenResult[$i]->calculatedBenefits;
 
-         $response =    Http::withHeaders([
-                'Content-type' => 'application/json',
-                'Authorization' =>
-                // 'Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330' // capital x live
-                // 'Bearer sk_test_f4d00fbdebcf31a02512634e379b0592d97050e6' - fillraphill test
-                'Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8' // capital x test
-            ])->post('https://api.paystack.co/transaction/charge_authorization', [
-                // 'name' => 'Taylor',
-                // 'role' => 'Developer',
-                "authorization_code" => 'AUTH_6xm6ry0ol0',
-                 "email" => 'mail@ajs.com',
-                 "amount" => 3000
-            ]);
-            $bodies = json_decode($response->body());
+                $userAuth= DB::select( DB::raw("SELECT * FROM cardauths WHERE email = :email"), array(
+                    'email' => $mymail,
+                    ));
 
-            print_r($bodies);
+print_r($userAuth);
 
+   $response =    Http::withHeaders([
+                    'Content-type' => 'application/json',
+                    'Authorization' =>
+                    // 'Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330' // capital x live
+                    // 'Bearer sk_test_f4d00fbdebcf31a02512634e379b0592d97050e6' - fillraphill test
+                    'Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8' // capital x test
+                ])->post('https://api.paystack.co/transaction/charge_authorization', [
+
+                    "authorization_code" => $userAuth[0]->authorization_code,
+                     "email" => $mymail,
+                     "amount" => 3000
+                ]);
+                $bodies = json_decode($response->body());
+
+                print_r($bodies);
                 if ($bodies) {
                     $newresponse =    Http::withHeaders([
                         'Content-type' => 'application/json',
                         'Accept' => 'application/json',
                         // 'Authorization' => 'Bearer $token'
-                    ])->post('http://127.0.0.1:8000/api/savingsVault', [
-                        'interest' => '10%',
-                        'payback_date' => '2021/12/22',
-                        'amount' => '500',
-                        'title' => 'this is title',
-                        'source' => 'from saved card',
-                        'userMail' => 'mail@ajs.com',
+                    ])->post('http://192.168.137.1:8000/api/savingsVault', [
+                        'interest' => $interest,
+                        'payback_date' => $payback_date,
+                        'amount' => $amount,
+                        'title' => $title,
+                        'source' => 'from saved card / Auto debit',
+                        'userMail' => $mymail,
+                        'calculatedBenefits'=> $calculatedBenefits,
+                        'howoften' => 'Daily',
+
+
 
                     ]);
                     $newbodies = json_decode($newresponse->body());
@@ -94,11 +116,31 @@ class AutoDebitCard extends Command
                 }
 
 
+            }
+        }
+         if($howoftenResultWeekly){
+
+            for($i = 0;$i <= count($howoftenResultWeekly) -2 ;$i++){
+                $mydec =  $howoftenResult[$i]->created_at;
+               $resub =  substr($mydec, 0, 10);
+            $daysToAdd = 7;
+         $ucarb =   Carbon::createFromFormat('Y-m-d', $resub)->addDays($daysToAdd);
+         $carbToString = $ucarb->toDateString();
+         $mytime = Carbon::now()->toDateString();
+
+         if ( $mytime == $carbToString) {
+             print_r('they are equaal');
+             # code...
+         } else {
+            print_r('they are not equaal');
+         }
+
+
+            }
+
         }
 
-        // print_r($result);
+            //  print_r($payback);
 
-
-        // $this->info('Error returned');
     }
 }
