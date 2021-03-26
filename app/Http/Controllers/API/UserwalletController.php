@@ -31,7 +31,7 @@ class UserwalletController extends BaseController
         $userLastName = $input['last_name'];
 
         $userMail = $request->userMail;
-        $getID = DB::select( DB::raw("SELECT id FROM Userwallets WHERE userMail = :userMail"), array(
+        $getID = DB::select( DB::raw("SELECT id FROM userwallets WHERE userMail = :userMail"), array(
             'userMail' => $userMail,
           ));
 
@@ -74,10 +74,10 @@ class UserwalletController extends BaseController
         $walletBalance = $input['walletBalance'];
 
 
-        // $result = DB::update(DB::raw("update Userwallets set walletBalance=:walletBalance where id=:id"),
+        // $result = DB::update(DB::raw("update userwallets set walletBalance=:walletBalance where id=:id"),
         // array('amount'=>$amount,'id'=>$id,));
 
-        $result = DB::update(DB::raw("update Userwallets set first_name=:first_name,last_name=:last_name,mobile=:mobile,bvn=:bvn,userMail=:userMail,walletBalance=:walletBalance where id=:id"),
+        $result = DB::update(DB::raw("update userwallets set first_name=:first_name,last_name=:last_name,mobile=:mobile,bvn=:bvn,userMail=:userMail,walletBalance=:walletBalance where id=:id"),
         array('first_name'=>$first_name,'id'=>$id,'last_name'=>$last_name,'mobile'=>$mobile,'bvn'=>$bvn,'userMail'=>$userMail,'walletBalance'=>$walletBalance,));
 
 

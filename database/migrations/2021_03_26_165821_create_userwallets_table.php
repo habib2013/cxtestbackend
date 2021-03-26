@@ -15,7 +15,7 @@ class CreateUserwalletsTable extends Migration
     {
         Schema::create('userwallets', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
+               $table->string('first_name');
             $table->string('last_name');
             $table->string('mobile');
             $table->string('dob');
