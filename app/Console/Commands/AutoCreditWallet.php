@@ -50,17 +50,31 @@ class AutoCreditWallet extends Command
         $payback= DB::select( DB::raw("SELECT * FROM savings WHERE payback_date = :payback_date"), array(
         'payback_date' => $mytime,
         ));
+        // print_r($payback);
 
         if ($payback) {
+
             for ($i=0; $i < count($payback); $i++) {
                 $paybackMail = $payback[$i]->userMail;
 
-                // print_r($paybackMail);
+                $paybackAmount = (int)$payback[$i]->amount;
+
+                $newAmount1 = 0;
+
+                // $newAmount = $selectMail[0]->walletBalance;
+
+                $newAmount1 += $paybackAmount;
+
+                 print_r($newAmount1);
+               
+                $selectMail= DB::select( DB::raw("SELECT * FROM userwallets WHERE userMail = :userMail"), array(
+                'userMail' => $paybackMail,
+                ));
+
+
             }
 
-            // $selectMail= DB::select( DB::raw("SELECT * FROM userwallets WHERE payback_date = :payback_date"), array(
-            //     'payback_date' => $mytime,
-            //     ));
+
         }
 
 
