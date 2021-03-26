@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\API\BaseController as BaseController;
 use App\Models\User;
-use App\Models\userWallet;
+use App\Models\Userwallet;
 use App\Models\Cardauth;
 use App\Models\Bankaccounts;
 use App\Models\Savings;
@@ -23,7 +23,7 @@ class UserwalletController extends BaseController
 
     public function createWallet(Request $request){
         $input = $request->all();
-        $created =   userWallet::create($input);
+        $created =   Userwallet::create($input);
             $currentDate = rand(1,150000000000);
         $userFirstName = $input['first_name'];
         // $userID = $input['id'];
@@ -31,7 +31,7 @@ class UserwalletController extends BaseController
         $userLastName = $input['last_name'];
 
         $userMail = $request->userMail;
-        $getID = DB::select( DB::raw("SELECT id FROM userwallets WHERE userMail = :userMail"), array(
+        $getID = DB::select( DB::raw("SELECT id FROM Userwallets WHERE userMail = :userMail"), array(
             'userMail' => $userMail,
           ));
 
@@ -52,15 +52,15 @@ class UserwalletController extends BaseController
 
     }
 
-    public function getUserWallet(Request $request,$id) {
-        $userWallet = userWallet::findOrFail($id);
+    public function getUserwallet(Request $request,$id) {
+        $Userwallet = Userwallet::findOrFail($id);
         return response()->json([
-            'userData' => $userWallet,
+            'userData' => $Userwallet,
             'message' => 'User fecthed successfully',
         ]);
     }
 
-    public function updateUserWallet(Request $request){
+    public function updateUserwallet(Request $request){
 
 
         $input = $request->all();
@@ -74,19 +74,19 @@ class UserwalletController extends BaseController
         $walletBalance = $input['walletBalance'];
 
 
-        // $result = DB::update(DB::raw("update userwallets set walletBalance=:walletBalance where id=:id"),
+        // $result = DB::update(DB::raw("update Userwallets set walletBalance=:walletBalance where id=:id"),
         // array('amount'=>$amount,'id'=>$id,));
 
-        $result = DB::update(DB::raw("update userwallets set first_name=:first_name,last_name=:last_name,mobile=:mobile,bvn=:bvn,userMail=:userMail,walletBalance=:walletBalance where id=:id"),
+        $result = DB::update(DB::raw("update Userwallets set first_name=:first_name,last_name=:last_name,mobile=:mobile,bvn=:bvn,userMail=:userMail,walletBalance=:walletBalance where id=:id"),
         array('first_name'=>$first_name,'id'=>$id,'last_name'=>$last_name,'mobile'=>$mobile,'bvn'=>$bvn,'userMail'=>$userMail,'walletBalance'=>$walletBalance,));
 
 
 
 
             if($result){
-                $userWallet = userWallet::findOrFail($id);
+                $Userwallet = Userwallet::findOrFail($id);
                 return response()->json([
-                    'userData' => $userWallet,
+                    'userData' => $Userwallet,
                     'message' => 'User fecthed successfully',
                 ]);
             }
