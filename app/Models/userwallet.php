@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Userwallet extends Model
 {
     use HasFactory;
-
     protected $guarded = [];
 }
 
