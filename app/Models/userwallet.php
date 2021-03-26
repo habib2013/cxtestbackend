@@ -10,4 +10,3 @@ class Userwallet extends Model
     use HasFactory;
     protected $guarded = [];
 }
-
