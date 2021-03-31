@@ -22,6 +22,7 @@ Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
 Route::post('saveToHasWallet', [RegisterController::class, 'saveToHasWallet']);
 Route::get('/', [RegisterController::class, 'homePage']);
+Route::get('/verifyReference/{reference}', [RegisterController::class, 'verifyReference']);
 Route::get('/getUserData/{id}', function ($id) {
    $userData = User::findOrFail($id);
    return response()->json([

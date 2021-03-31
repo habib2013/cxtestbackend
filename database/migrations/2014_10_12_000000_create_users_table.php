@@ -16,18 +16,9 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('merchant_name');
-            $table->string('business_email')->unique();
+            $table->string('email')->unique();
+            $table->string('is_admin')->default('user');
             $table->string('password');
-            $table->string('office_address');
-            $table->string('office_mobile');
-            $table->string('account_holder');
-            $table->string('account_number');
-            $table->string('bank_name');
-            $table->string('contact_person');
-            $table->string('contact_mobile');
-            $table->string('residential_address');
-            $table->string('contact_email');
-            $table->string('designation');
 
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

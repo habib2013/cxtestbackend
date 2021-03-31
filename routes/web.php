@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UserdashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +18,18 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('userdashboard');
+// });
+
+
+Route::post('login', [LoginController::class, 'login']);
+Route::get('dashboard', [UserdashboardController::class, 'dashboard']);
+
+Route::get('savings', [UserdashboardController::class, 'savings']);
+
+Route::get('benefits', [UserdashboardController::class, 'benefits']);
+
+// Route::middleware(['auth:sanctum', 'verified'])->get('/uhome', function () {
+//     return view('udashboard');
+// })->name('home');
