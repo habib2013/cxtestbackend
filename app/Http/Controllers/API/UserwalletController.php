@@ -10,6 +10,8 @@ use App\Models\Cardauth;
 use App\Models\Bankaccounts;
 use App\Models\Savings;
 use App\Models\Benefits;
+use App\Models\Transactionhistory;
+
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Validator;
@@ -54,10 +56,21 @@ class UserwalletController extends BaseController
 
     public function getUserwallet(Request $request,$id) {
         $Userwallet = Userwallet::findOrFail($id);
-        return response()->json([
-            'userData' => $Userwallet,
-            'message' => 'User fecthed successfully',
-        ]);
+
+        if($Userwallet){
+            return response()->json([
+                'userData' => $Userwallet,
+                'message' => 'User fecthed successfully',
+                'status' => 'success'
+            ]);
+        }
+        else {
+            return response()->json([
+                'message' => 'unable to fetch wallet',
+                'status' => 'failed'
+            ]);
+        }
+
     }
 
     public function updateUserwallet(Request $request){
@@ -98,7 +111,18 @@ class UserwalletController extends BaseController
     }
 
 public function saveReceipientData(Request $request){
+    $account_number = $request->account_number;
 
+    $getDetails= DB::select( DB::raw("SELECT * FROM bankaccounts WHERE account_number = :account_number"), array(
+        'account_number' => $account_number,
+      ));
+
+      if(count($getDetails) != 0){
+            return response()->json([
+                'message' => 'account number already exists'
+            ],400);
+      }
+else {
     $input = $request->all();
 
     $res_created = Bankaccounts::create($input);
@@ -111,11 +135,29 @@ public function saveReceipientData(Request $request){
     else {
         return response()->json([
             'message'=> 'falied'
-        ],200);
+        ],400);
     }
+}
 
 }
 
+
+public function getSavedRecipient(Request $request,$email){
+    $getDetails= DB::select( DB::raw("SELECT * FROM bankaccounts WHERE userMail = :email"), array(
+        'email' => $email,
+      ));
+
+      if ($getDetails) {
+          return response()->json([
+              'message'=> 'success',
+              'data' => $getDetails,
+          ],200);
+      }else {
+          return response()->json([
+              'message' => 'error'
+          ],404);
+      }
+}
 
 public function saveTransactionCard(Request $request){
     $input = $request->all();
@@ -169,6 +211,26 @@ public function calculateInterestWithDate(Request $request){
 
 }
 
+public function isHaveWallet(Request $request,$email){
+
+    $getStatus = DB::select( DB::raw("SELECT * FROM userwallets WHERE userMail = :userMail"), array(
+        'userMail' => $email,
+      ));
+
+      if(count($getStatus) == 0){
+        return response()->json([
+            'message' => 'you haven\'t created a wallet yet',
+            'status' =>'create',
+
+        ]);
+      }else {
+        return response()->json([
+            'message' => 'wallet exists',
+            'status' => 'continue',
+            'userId' => $getStatus[0]->id
+        ]);
+      }
+}
 
 public function savingsVault(Request $request){
         $input = $request->all();
@@ -212,10 +274,94 @@ public function saveBenefits(Request $request){
   if ($created) {
     return response()->json([
         'message' => 'success',
+    ],200);
+  }
+else {
+    return response()->json([
+        'message' => 'failed',
+    ],400);
+}
+
+}
+
+public function saveTransactions(Request $request){
+        $input = $request->all();
+      $created = Transactionhistory::create($input);
+
+      if ($created) {
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Transaction history created'
+        ],200);
+      }
+      else {
+        return response()->json([
+            'status' => 'failed',
+            'message' => 'Transaction history not created'
+        ],400);
+      }
+}
+
+
+public function getAllTransactionsHistory(Request $request,$email){
+    $getDetails= DB::select( DB::raw("SELECT * FROM  transactionhistories WHERE userMail = :email"), array(
+        'email' => $email,
+      ));
+
+      if(count($getDetails) == 0){
+            return response()->json([
+                'message' => 'Transaction history is empty',
+                'status' => 'empty'
+            ],400);
+      } else {
+        return response()->json([
+            'message' => 'Transaction history found',
+            'status' => 'success',
+            'data' => $getDetails,
+        ],200);
+      }
+}
+
+
+public function getTransactionHistoryByType(Request $request,$email,$categoryType){
+    $getDetails= DB::select( DB::raw("SELECT * FROM  transactionhistories WHERE userMail = :email AND categoryType =:categoryType"), array(
+        'email' => $email,'categoryType' => $categoryType
+      ));
+
+      if(count($getDetails) == 0){
+        return response()->json([
+            'message' => 'Transaction history is empty',
+            'status' => 'empty'
+        ]);
+  } else {
+    return response()->json([
+        'message' => 'Transaction history found',
+        'status' => 'success',
+        'data' => $getDetails,
     ]);
   }
 
+}
 
+public function updateSavings(Request $request){
+    $status = $request->status;
+    $id = $request->id;
+
+    $result = DB::update(DB::raw("update savings set status=:status where id=:id"),array('status'=>$status,'id'=>$id));
+    // return response()->json(['success'=>'done']);
+        if ($result) {
+           return response()->json([
+               'message'=> 'status updated',
+               'success' => 'success'
+           ],200);
+       }
+
+       else{
+        return response()->json([
+            'message'=> 'failed to update status',
+            'success' => 'failed'
+        ],400);
+       }
 }
 
 

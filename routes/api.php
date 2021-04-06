@@ -36,10 +36,17 @@ Route::post('saveTransactionCard',[UserwalletController::class,'saveTransactionC
 Route::post('savingsVault',[UserwalletController::class,'savingsVault']);
 Route::post('saveBenefits',[UserwalletController::class,'saveBenefits']);
 
+Route::post('saveTransactions',[UserwalletController::class,'saveTransactions']);
+Route::post('updateSavings',[UserwalletController::class,'updateSavings']);
+
 Route::get('getTotalSavings/{email}',[UserwalletController::class,'getTotalSavings']);
 Route::get('calculateInterestWithDate',[UserwalletController::class,'calculateInterestWithDate']);
 Route::get('getUserWallet/{id}',[UserwalletController::class,'getUserWallet']);
 Route::get('showSavedCards/{email}',[UserwalletController::class,'showSavedCards']);
+Route::get('getSavedRecipient/{email}',[UserwalletController::class,'getSavedRecipient']);
+Route::get('isHaveWallet/{email}',[UserwalletController::class,'isHaveWallet']);
+Route::get('getAllTransactionsHistory/{email}',[UserwalletController::class,'getAllTransactionsHistory']);
+Route::get('getTransactionHistoryByType/{email}/{categoryType}',[UserwalletController::class,'getTransactionHistoryByType']);
 
 
 
