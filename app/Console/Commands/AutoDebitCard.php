@@ -90,9 +90,9 @@ print_r($userAuth);
    $response =    Http::withHeaders([
                     'Content-type' => 'application/json',
                     'Authorization' =>
-                    // 'Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330' // capital x live
+                     'Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330' // capital x live
                     // 'Bearer sk_test_f4d00fbdebcf31a02512634e379b0592d97050e6' - fillraphill test
-                    'Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8' // capital x test
+                  //  'Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8' // capital x test
                 ])->post('https://api.paystack.co/transaction/charge_authorization', [
 
                     "authorization_code" => $userAuth[0]->authorization_code,
@@ -160,9 +160,9 @@ print_r($userAuth);
                 $response =    Http::withHeaders([
                     'Content-type' => 'application/json',
                     'Authorization' =>
-                    // 'Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330' // capital x live
+                     'Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330' // capital x live
                     // 'Bearer sk_test_f4d00fbdebcf31a02512634e379b0592d97050e6' - fillraphill test
-                    'Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8' // capital x test
+                   // 'Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8' // capital x test
                 ])->post('https://api.paystack.co/transaction/charge_authorization', [
 
                     "authorization_code" => $userAuth[0]->authorization_code,
@@ -235,9 +235,9 @@ print_r($userAuth);
                 $response =    Http::withHeaders([
                     'Content-type' => 'application/json',
                     'Authorization' =>
-                    // 'Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330' // capital x live
+                     'Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330' // capital x live
                     // 'Bearer sk_test_f4d00fbdebcf31a02512634e379b0592d97050e6' - fillraphill test
-                    'Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8' // capital x test
+                  //  'Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8' // capital x test
                 ])->post('https://api.paystack.co/transaction/charge_authorization', [
 
                     "authorization_code" => $userAuth[0]->authorization_code,

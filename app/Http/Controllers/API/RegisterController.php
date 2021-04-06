@@ -104,7 +104,7 @@ public function verifyReference($reference){
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
-      "Authorization: Bearer sk_test_0535a7f299f9f273c4a9a3b7fdbd888e50c5e4f8",
+      "Authorization: Bearer sk_live_8c5c0e32507cb62ae4e237384dc2f5c8896b2330",
       "Cache-Control: no-cache",
     ),
   ));
@@ -148,15 +148,15 @@ public function verifyReference($reference){
 
         ]);
         print_r($vooF);
-                 
+
 
     } else {
         print_r('unable to print');
     }
 
- 
+
   }
 }
 
-  
+
 }
