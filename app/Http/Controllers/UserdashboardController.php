@@ -25,7 +25,16 @@ class UserdashboardController extends Controller
 }
 
 public function benefits(){
+    $benefits = Benefits::all();
 
-    return view('benefits');
+    return view('benefits',compact('benefits'));
  }
+
+ public function editbenefits(){
+    // $benefits = Benefits::all();
+
+    return view('editbenefit');
+ }
+
+
 }

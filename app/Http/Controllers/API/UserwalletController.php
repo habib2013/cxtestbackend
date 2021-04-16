@@ -23,6 +23,23 @@ use Illuminate\Support\Facades\Hash;
 class UserwalletController extends BaseController
 {
 
+    public function showBenefitsList(){
+
+        // $showLists = DB::select( DB::raw("SELECT bendatas.id,  bendatas.name, bendatas.code, bendatas.min, bendatas.image, bendatas.leastminimum
+        // FROM bendatas
+        // INNER JOIN bensubdatas ON bendatas.id=bensubdatas.bendata_id;"));
+
+        $showLists = DB::select( DB::raw("SELECT selectedsource  FROM bendatas where id=1"));
+
+        $bodies = json_encode($showLists[0]);
+        $ourBodies = json_decode($bodies);
+        $ourSelected = json_decode($ourBodies->selectedsource);
+        // print_r(gettype($ourSelected));
+        // return response()->json([
+        //     'benIe' => $showLists
+        // ]);
+    }
+
     public function createWallet(Request $request){
         $input = $request->all();
         $created =   Userwallet::create($input);
@@ -352,6 +369,50 @@ public function updateSavings(Request $request){
         if ($result) {
            return response()->json([
                'message'=> 'status updated',
+               'success' => 'success'
+           ],200);
+       }
+
+       else{
+        return response()->json([
+            'message'=> 'failed to update status',
+            'success' => 'failed'
+        ],400);
+       }
+}
+
+public function updateVault(Request $request){
+
+
+    $id = $request->id;
+    $interest = $request->interest;
+    $payback_date = $request->payback_date;
+    $amount = $request->amount;
+    $title = $request->title;
+
+    $source = $request->source;
+    $userMail = $request->userMail;
+
+    $calculatedBenefits = $request->calculatedBenefits;
+    $howoften = $request->howoften;
+
+    $result = DB::update(DB::raw("update savings set interest=:interest,
+    payback_date=:payback_date,amount=:amount,title=:title,
+    source=:source,userMail=:userMail,
+    calculatedBenefits=:calculatedBenefits,
+    howoften=:howoften where id=:id"),array('interest'=>$interest,
+    'payback_date'=>$payback_date
+     ,'amount'=>$amount,'title'=>$title,'source'=>$source,
+     'userMail'=>$userMail,
+     'calculatedBenefits'=>$calculatedBenefits,
+     'howoften'=>$howoften,
+     'id'=>$id));
+
+     $secondClear = DB::update(DB::raw(""));
+    // return response()->json(['success'=>'done']);
+        if ($result) {
+           return response()->json([
+               'message'=> 'savings updated',
                'success' => 'success'
            ],200);
        }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSavingsTable extends Migration
+class CreateBenenfitDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class CreateSavingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('savings', function (Blueprint $table) {
+        Schema::create('benenfit_data', function (Blueprint $table) {
             $table->id();
-            $table->string('interest');
-            $table->string('payback_date');
-            $table->string('amount');
-            $table->string('title')->unique();
-            $table->string('source');
+            $table->json('selectedSources')->nullable();
             $table->timestamps();
         });
     }
@@ -31,6 +27,6 @@ class CreateSavingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('savings');
+        Schema::dropIfExists('benenfit_data');
     }
 }

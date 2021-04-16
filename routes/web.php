@@ -29,6 +29,7 @@ Route::get('dashboard', [UserdashboardController::class, 'dashboard']);
 Route::get('savings', [UserdashboardController::class, 'savings']);
 
 Route::get('benefits', [UserdashboardController::class, 'benefits']);
+Route::get('editbenefits', [UserdashboardController::class, 'editbenefits']);
 
 // Route::middleware(['auth:sanctum', 'verified'])->get('/uhome', function () {
 //     return view('udashboard');

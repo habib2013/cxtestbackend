@@ -117,8 +117,6 @@ print_r($userAuth);
                         'calculatedBenefits'=> $calculatedBenefits,
                         'howoften' => 'Daily',
 
-
-
                     ]);
                     $newbodies = json_decode($newresponse->body());
 
