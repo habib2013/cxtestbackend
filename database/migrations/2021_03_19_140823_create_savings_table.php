@@ -18,7 +18,7 @@ class CreateSavingsTable extends Migration
             $table->string('interest');
             $table->string('payback_date');
             $table->string('amount');
-            $table->string('title')->unique();
+            $table->string('title');
             $table->string('source');
             $table->timestamps();
         });

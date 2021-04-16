@@ -408,7 +408,7 @@ public function updateVault(Request $request){
      'howoften'=>$howoften,
      'id'=>$id));
 
-     $secondClear = DB::update(DB::raw(""));
+ 
     // return response()->json(['success'=>'done']);
         if ($result) {
            return response()->json([
