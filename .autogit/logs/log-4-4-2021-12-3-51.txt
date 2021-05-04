@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Tue May 04 2021 12:03:51 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+* routes/api.php
+
+
+Created files:
+* app/Mail/WelcomeMail.php
+* resources/views/emails/mails/welcome.blade.php
+
+
+Deleted files:
+
+
+Renamed files:

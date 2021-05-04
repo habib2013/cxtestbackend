@@ -9,6 +9,7 @@ use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\API\UserwalletController;
 use App\Models\Userwallet;
 use App\Mail\WelcomeMail;
+use DB;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,8 +25,17 @@ Route::get('sendMail/{id}', function ($id) {
 
     $subscriber = Userwallet::findOrFail($id);
 
-    Mail::to($subscriber)->send(new WelcomeMail($subscriber));
+    $userId = $id;
+    $getMail = DB::select( DB::raw("SELECT userMail FROM userwallets WHERE id = :userId"), array(
+        'userId' => $userId,
+      ));
+
+    $NewuserMail = $getMail[0]-> userMail;
+
+  //  Mail::to($subscriber)->send(new WelcomeMail($subscriber));
     // Mail::to(['alert@capitalx.email'])->send(new Hello($subscriber));
+        $mailer = 'tayooladosu9@gmail.com';
+       Mail::to([$mailer])->send(new WelcomeMail($subscriber));
 
     // return view('confirmation');
 });
