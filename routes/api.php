@@ -7,6 +7,8 @@ use App\Http\Controllers\API\RegisterController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\API\UserwalletController;
+use App\Models\Userwallet;
+use App\Mail\WelcomeMail;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -17,6 +19,16 @@ use App\Http\Controllers\API\UserwalletController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+Route::get('sendMail/{id}', function ($id) {
+
+    $subscriber = Userwallet::findOrFail($id);
+
+    Mail::to($subscriber)->send(new WelcomeMail($subscriber));
+    // Mail::to(['alert@capitalx.email'])->send(new Hello($subscriber));
+
+    // return view('confirmation');
+});
 
 Route::post('register', [RegisterController::class, 'register']);
 Route::post('login', [RegisterController::class, 'login']);
