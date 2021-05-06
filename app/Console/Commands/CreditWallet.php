@@ -52,21 +52,12 @@ class CreditWallet extends Command
             'mytime' => $mytime,
             ));
 
-           
-            
-            //check back here
-            // print_r($paybackDate);
-            // $payMeback = $paybackDate[1]->payback_date;
-            // print_r('payback date');
-            // print_r($payMeback);
-
             for ($i=0; $i < count($paybackDate); $i++) { 
             $userEmail = $paybackDate[$i]->userMail;
             $userAmount = $paybackDate[$i]->amount;
             $userInterest = $paybackDate[$i]->interest;
             $userPayback = $paybackDate[$i]->payback_date;
 
-           
             }
                 print_r($userEmail);
             if ($mytime == $userPayback) {
@@ -74,7 +65,6 @@ class CreditWallet extends Command
                 $getUserWallet= DB::select( DB::raw("SELECT * FROM userwallets WHERE userMail = :userMail"), array(
                     'userMail' => $userEmail,
                     ));
-
 
                     for ($i=0; $i < count($getUserWallet); $i++) { 
                         print_r($getUserWallet[$i]->walletBalance);
@@ -91,16 +81,16 @@ class CreditWallet extends Command
                     'Content-type' => 'application/json',
                     'Accept' => 'application/json',
                     // 'Authorization' => 'Bearer $token'
-                ])->post(' http://192.168.43.57:8000/api/updateUserWallet', [
-                    'id' => $interest,
-                    'first_name' => $payback_date,
-                    'last_name' => $amount,
-                    'mobile' => $title,
-                    'dob' => 'from saved card / Auto debit',
-                    'bvn' => $mymail,
-                    'userMail'=> $calculatedBenefits,
-                    'walletBalance' => 'Weekly',
-                    'created_at' => $newUserBalance
+                ])->post('http://192.168.43.57:8000/api/updateUserWallet', [
+                    'id' => $getUserWallet[$i]->id,
+                    'first_name' => $getUserWallet[$i]->first_name,
+                    'last_name' =>  $getUserWallet[$i]->last_name,
+                    'mobile' => $getUserWallet[$i]->mobile,
+                    'dob' =>  $getUserWallet[$i]->dob,
+                    'bvn' => $getUserWallet[$i]->bvn,
+                    'userMail'=> $getUserWallet[$i]->userMail,
+                    'walletBalance' => $newUserBalance,
+                    
 
                 ]);
                 $newbodies = json_decode($newresponse->body());
