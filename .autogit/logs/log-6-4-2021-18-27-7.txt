@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Thu May 06 2021 18:27:07 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+* app/Console/Commands/CreditWallet.php
+
+
+Created files:
+* .autogit/logs/log-6-4-2021-16-19-26.txt
+* database/migrations/2021_05_06_172123_add_is_settled_to_savings_table.php
+
+
+Deleted files:
+
+
+Renamed files:
