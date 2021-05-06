@@ -1,0 +1,15 @@
+-------------------- Auto-Git Log --------------------
+		Thu May 06 2021 13:09:19 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+* resources/views/emails/mails/welcome.blade.php
+
+
+Created files:
+
+
+Deleted files:
+
+
+Renamed files:
