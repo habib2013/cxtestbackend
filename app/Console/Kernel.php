@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         Commands\WordOfTheDay::class,
         Commands\AutoDebitCard::class,
         Commands\AutoCreditWallet::class,
+        commands\CreditWallet::class,
     ];
 
     /**
@@ -27,10 +28,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('word:day')->everyMinute();
-        $schedule->command('autodebit:card')->dailyAt('13:00');
-        $schedule->command('autocredit:wallet')->dailyAt('13:00');
-
+        // $schedule->command('word:day')->everyMinute();
+        // $schedule->command('autodebit:card')->dailyAt('13:00');
+        // $schedule->command('autocredit:wallet')->dailyAt('13:00');
+           $schedule->command('autodebit:card')->everyMinute();
+        // $schedule->command('autocredit:wallet')->everyMinute();
+        $schedule->command('credit:wallet')->everyMinute();
+     
     }
 
     /**

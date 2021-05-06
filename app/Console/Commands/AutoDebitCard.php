@@ -129,7 +129,8 @@ print_r($userAuth);
         }
          if($howoftenResultWeekly){
 
-            for($i = 0;$i <= count($howoftenResultWeekly) -1;$i++){
+            for($i = 0;$i <= count($howoftenResultWeekly) -1;$i++)
+            {
                 $mydec =  $howoftenResultWeekly[$i]->created_at;
                $resub =  substr($mydec, 0, 10);
                  $daysToAdd = 7;

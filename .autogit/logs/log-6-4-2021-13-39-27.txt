@@ -1,0 +1,15 @@
+-------------------- Auto-Git Log --------------------
+		Thu May 06 2021 13:39:27 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/logs/log-6-4-2021-13-9-19.txt
+
+
+Deleted files:
+
+
+Renamed files:
