@@ -57,9 +57,9 @@ class CreditWallet extends Command
             $userAmount = $paybackDate[$i]->amount;
             $userInterest = $paybackDate[$i]->interest;
             $userPayback = $paybackDate[$i]->payback_date;
+         
 
-            }
-                print_r($userEmail);
+            
             if ($mytime == $userPayback) {
                 print_r('they are equal');
                 $getUserWallet= DB::select( DB::raw("SELECT * FROM userwallets WHERE userMail = :userMail"), array(
@@ -91,7 +91,6 @@ class CreditWallet extends Command
                     'userMail'=> $getUserWallet[$i]->userMail,
                     'walletBalance' => $newUserBalance,
                     
-
                 ]);
                 $newbodies = json_decode($newresponse->body());
 
@@ -104,6 +103,12 @@ class CreditWallet extends Command
              } else {
                  print_r('they are not');
              }
+
+            }
+                
+            
+
+
 
      
         
