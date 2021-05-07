@@ -197,6 +197,24 @@ public function saveTransactionCard(Request $request){
 
 }
 
+public function deleteSavings(Request $request,$id){
+    $deleteSavings= DB::delete( DB::raw("DELETE FROM savings WHERE id = :id"), array(
+        'id' => $id,
+      ));
+
+      if ($deleteSavings) {
+        return response()->json([
+            'message'=> 'success',
+           
+        ],200);
+    }else {
+        return response()->json([
+            'message' => 'error'
+        ],404);
+    }
+}
+
+
 public function showSavedCards(Request $request,$email){
 
     $getDetails= DB::select( DB::raw("SELECT * FROM cardauths WHERE email = :email"), array(
