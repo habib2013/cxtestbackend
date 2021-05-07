@@ -198,8 +198,9 @@ public function saveTransactionCard(Request $request){
 }
 
 public function deleteSavings(Request $request,$id){
+    $savingsid = $id;
     $deleteSavings= DB::delete( DB::raw("DELETE FROM savings WHERE id = :id"), array(
-        'id' => $id,
+        'id' => $savingsid,
       ));
 
       if ($deleteSavings) {
@@ -207,6 +208,7 @@ public function deleteSavings(Request $request,$id){
             'message'=> 'success',
            
         ],200);
+
     }else {
         return response()->json([
             'message' => 'error'

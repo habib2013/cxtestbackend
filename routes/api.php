@@ -58,7 +58,7 @@ Route::post('saveTransactionCard',[UserwalletController::class,'saveTransactionC
 Route::post('savingsVault',[UserwalletController::class,'savingsVault']);
 Route::post('saveBenefits',[UserwalletController::class,'saveBenefits']);
 
-Route::post('deleteSavings',[UserwalletController::class,'deleteSavings']);
+Route::post('deleteSavings/{id}',[UserwalletController::class,'deleteSavings']);
 
 Route::post('saveTransactions',[UserwalletController::class,'saveTransactions']);
 Route::post('updateSavings',[UserwalletController::class,'updateSavings']);
