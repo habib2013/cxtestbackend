@@ -1,0 +1,17 @@
+-------------------- Auto-Git Log --------------------
+		Sat May 08 2021 21:04:44 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+
+
+Created files:
+* .autogit/logs/log-8-4-2021-13-58-40.txt
+* app/Models/Transactionpin.php
+* database/migrations/2021_05_08_200125_create_transactionpins_table.php
+
+
+Deleted files:
+
+
+Renamed files:
