@@ -210,25 +210,35 @@ public function deleteSavings(Request $request,$id){
 // delete from savings where ID = iD called 
 
 
-$selectData= DB::delete( DB::raw("SELECT * FROM savings WHERE id = :id"), array(
+$selectData= DB::select( DB::raw("SELECT * FROM savings WHERE id = :id"), array(
     'id' => $savingsid,
-  ));
+      ));
 
-$savinsgMail = $selectData[0]->userMail;
-$savinsgAmount = $selectData[0]->amount;
+    $savinsgMail = $selectData[0]->userMail;
+    $savinsgAmount = $selectData[0]->amount;
 
+    $selectWallet= DB::select( DB::raw("SELECT walletBalance FROM userwallets WHERE userMail = :userMail"), array(
+        'userMail' => $savinsgMail,
+      ));
+    
+      $walletBalance = $selectWallet[0]->walletBalance;
+      $newbalance = $walletBalance + $savinsgAmount;
 
+      $result = DB::update(DB::raw("update userwallets set walletBalance=:walletBalance
+       where userMail=:userMail"),array('walletBalance'=>$newbalance,'userMail'=>$savinsgMail));
+   
 
-
-    // $deleteSavings= DB::delete( DB::raw("DELETE FROM savings WHERE id = :id"), array(
-    //     'id' => $savingsid,
-    //   ));
+    $deleteSavings= DB::delete( DB::raw("DELETE FROM savings WHERE id = :id"), array(
+        'id' => $savingsid,
+      ));
 
       if ($selectData) {
         return response()->json([
             'message'=> 'success',
             'data1' => $savinsgAmount,
-            'data2' => $savinsgMail
+            'data2' => $savinsgMail,
+            'data3' => $walletBalance,
+            'data4' => $newbalance 
         ],200);
 
     }else {
