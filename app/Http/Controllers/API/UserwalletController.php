@@ -199,14 +199,36 @@ public function saveTransactionCard(Request $request){
 
 public function deleteSavings(Request $request,$id){
     $savingsid = $id;
-    $deleteSavings= DB::delete( DB::raw("DELETE FROM savings WHERE id = :id"), array(
-        'id' => $savingsid,
-      ));
 
-      if ($deleteSavings) {
+    //Algorithm to return savings
+
+//get the ID from savings
+// select the userMail and amount from savings table 
+
+// query the userwallets table 
+// add oldamount plus new amount to be equal balance 
+// delete from savings where ID = iD called 
+
+
+$selectData= DB::delete( DB::raw("SELECT * FROM savings WHERE id = :id"), array(
+    'id' => $savingsid,
+  ));
+
+$savinsgMail = $selectData[0]->userMail;
+$savinsgAmount = $selectData[0]->amount;
+
+
+
+
+    // $deleteSavings= DB::delete( DB::raw("DELETE FROM savings WHERE id = :id"), array(
+    //     'id' => $savingsid,
+    //   ));
+
+      if ($selectData) {
         return response()->json([
             'message'=> 'success',
-           
+            'data1' => $savinsgAmount,
+            'data2' => $savinsgMail
         ],200);
 
     }else {
