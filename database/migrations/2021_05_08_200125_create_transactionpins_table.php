@@ -15,6 +15,8 @@ class CreateTransactionpinsTable extends Migration
     {
         Schema::create('transactionpins', function (Blueprint $table) {
             $table->id();
+            $table->string('pin')->nullable();
+            $table->string('userMail')->unique();
             $table->timestamps();
         });
     }

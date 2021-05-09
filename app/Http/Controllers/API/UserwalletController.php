@@ -11,6 +11,7 @@ use App\Models\Bankaccounts;
 use App\Models\Savings;
 use App\Models\Benefits;
 use App\Models\Transactionhistory;
+use App\Models\Transactionpin;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,25 @@ class UserwalletController extends BaseController
         // return response()->json([
         //     'benIe' => $showLists
         // ]);
+    }
+
+    public function createpin(Request $request,$userMail){
+        // check if user has pin 
+        // if does not.. create a pin
+        // else fetch pin details and show update function
+
+        $getMailPin = DB::select( DB::raw("SELECT * FROM transactionpins WHERE userMail = :userMail"), array(
+            'userMail' => $userMail,
+          ));
+
+          if($getMailPin){
+            return response()->json([
+                'data' => $getID
+            ]);
+          }
+
+         
+
     }
 
     public function createWallet(Request $request){

@@ -14,7 +14,7 @@ class AddIsSettledToSavingsTable extends Migration
     public function up()
     {
         Schema::table('savings', function (Blueprint $table) {
-            //
+            $table->string('isSettled')->nullable();
         });
     }
 
