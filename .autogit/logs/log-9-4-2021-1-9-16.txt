@@ -1,0 +1,20 @@
+-------------------- Auto-Git Log --------------------
+		Sun May 09 2021 01:09:16 GMT+0100 (West Africa Standard Time)
+------------------------------------------------------
+
+Modified files:
+* app/Http/Controllers/API/UserwalletController.php
+* app/Models/Transactionpin.php
+* database/migrations/2021_05_06_172123_add_is_settled_to_savings_table.php
+* database/migrations/2021_05_08_200125_create_transactionpins_table.php
+* routes/api.php
+
+
+Created files:
+* .autogit/logs/log-9-4-2021-0-37-47.txt
+
+
+Deleted files:
+
+
+Renamed files:

@@ -50,10 +50,16 @@ class UserwalletController extends BaseController
             'userMail' => $userMail,
           ));
 
+         
+
           if($getMailPin){
             return response()->json([
-                'data' => $getID
-            ]);
+                'data' => $getMailPin
+            ],200);
+          } else {
+            return response()->json([
+                'data' =>  $getMailPin.empty();
+            ],400);
           }
 
          
