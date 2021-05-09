@@ -51,6 +51,9 @@ Route::get('/getUserData/{id}', function ($id) {
     'data' => $userData
 ], 201);
 });
+
+Route::get('checkpin/{userMail}',[UserwalletController::class,'checkpin']);
+
 Route::post('createWallet',[UserwalletController::class,'createWallet']);
 Route::post('updateUserWallet',[UserwalletController::class,'updateUserWallet']);
 Route::post('saveReceipientData',[UserwalletController::class,'saveReceipientData']);
@@ -58,7 +61,7 @@ Route::post('saveTransactionCard',[UserwalletController::class,'saveTransactionC
 Route::post('savingsVault',[UserwalletController::class,'savingsVault']);
 Route::post('saveBenefits',[UserwalletController::class,'saveBenefits']);
 
-Route::post('createpin/{userMail}',[UserwalletController::class,'createpin']);
+Route::post('createpin',[UserwalletController::class,'createpin']);
 
 
 Route::post('deleteSavings/{id}',[UserwalletController::class,'deleteSavings']);

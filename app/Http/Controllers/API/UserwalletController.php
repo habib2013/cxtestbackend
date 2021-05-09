@@ -41,27 +41,48 @@ class UserwalletController extends BaseController
         // ]);
     }
 
-    public function createpin(Request $request,$userMail){
+public function checkpin(Request $request,$userMail){
+ 
+    $getMailPin = DB::select( DB::raw("SELECT * FROM transactionpins WHERE userMail = :userMail"), array(
+        'userMail' => $userMail,
+      ));
+
+      if(count($getMailPin) > 0){
+        return response()->json([
+            'data' => $getMailPin,
+            'message' => 'exists'
+        ],200);
+      } else {
+        return response()->json([
+            'data' =>  'create'
+        ],401);
+      }
+}
+
+    public function createpin(Request $request){
         // check if user has pin 
         // if does not.. create a pin
         // else fetch pin details and show update function
 
-        $getMailPin = DB::select( DB::raw("SELECT * FROM transactionpins WHERE userMail = :userMail"), array(
-            'userMail' => $userMail,
-          ));
+        $userMail = $request->userMail;
+        $pin = $request->pin;
 
-         
+        $input = $request->all();
+       
+            $pinCreate = Transactionpin::create($input);
 
-          if($getMailPin){
-            return response()->json([
-                'data' => $getMailPin
-            ],200);
-          } else {
-            return response()->json([
-                'data' =>  $getMailPin.empty();
-            ],400);
-          }
-
+            if ($pinCreate) {
+              return response()->json([
+               'message'=> 'pin created',
+                'status' => 'success' 
+              ]);
+            }
+            else {
+                return response()->json([
+                    'message'=> 'unable to create pin',
+                     'status' => 'failed' 
+                   ]);
+            }
          
 
     }
