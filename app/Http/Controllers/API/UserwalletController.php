@@ -440,7 +440,7 @@ public function getAllTransactionsHistory(Request $request,$email){
 
 
 public function getTransactionHistoryByType(Request $request,$email,$categoryType){
-    $getDetails= DB::select( DB::raw("SELECT * FROM  transactionhistories WHERE userMail = :email AND categoryType =:categoryType"), array(
+    $getDetails= DB::select( DB::raw("SELECT * FROM  transactionhistories WHERE userMail = :email AND categoryType =:categoryType ORDER BY id DESC"), array(
         'email' => $email,'categoryType' => $categoryType
       ));
 
