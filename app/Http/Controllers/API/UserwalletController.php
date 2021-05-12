@@ -420,7 +420,7 @@ public function saveTransactions(Request $request){
 
 
 public function getAllTransactionsHistory(Request $request,$email){
-    $getDetails= DB::select( DB::raw("SELECT * FROM  transactionhistories WHERE userMail = :email ORDER BY id "), array(
+    $getDetails= DB::select( DB::raw("SELECT * FROM  transactionhistories WHERE userMail = :email ORDER BY id DESC"), array(
         'email' => $email,
       ));
 
