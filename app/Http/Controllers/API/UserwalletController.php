@@ -62,10 +62,8 @@ public function checkpin(Request $request,$userMail){
 
 public function updatepin(Request $request){
  
-    $getMailPin = DB::select( DB::raw("SELECT * FROM transactionpins WHERE userMail = :userMail"), array(
-        'userMail' => $userMail,
-      ));
-
+    $userMail = $request->userMail;
+    $pin = $request->pin;
 
     $UpdateMailPin = DB::update( DB::raw("UPDATE transactionpins set pin=:pin WHERE userMail =:userMail"), array(
         'userMail' => $userMail,
