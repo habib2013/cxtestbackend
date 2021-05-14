@@ -53,6 +53,7 @@ Route::get('/getUserData/{id}', function ($id) {
 });
 
 Route::get('checkpin/{userMail}',[UserwalletController::class,'checkpin']);
+Route::post('updatepin',[UserwalletController::class,'updatepin']);
 
 Route::post('createWallet',[UserwalletController::class,'createWallet']);
 Route::post('updateUserWallet',[UserwalletController::class,'updateUserWallet']);

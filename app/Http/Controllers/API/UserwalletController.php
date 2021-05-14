@@ -59,6 +59,30 @@ public function checkpin(Request $request,$userMail){
       }
 }
 
+
+public function updatepin(Request $request){
+ 
+    $getMailPin = DB::select( DB::raw("SELECT * FROM transactionpins WHERE userMail = :userMail"), array(
+        'userMail' => $userMail,
+      ));
+
+
+    $UpdateMailPin = DB::update( DB::raw("UPDATE transactionpins set pin=:pin WHERE userMail =:userMail"), array(
+        'userMail' => $userMail,
+      ));
+
+      if($UpdateMailPin){
+        return response()->json([
+            'message' => 'pin Updated'
+        ],200);
+      } else {
+        return response()->json([
+            'message' =>  'create'
+        ],401);
+      }
+}
+
+
     public function createpin(Request $request){
         // check if user has pin 
         // if does not.. create a pin
