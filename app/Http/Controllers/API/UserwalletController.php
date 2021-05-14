@@ -66,7 +66,7 @@ public function updatepin(Request $request){
     $pin = $request->pin;
 
     $UpdateMailPin = DB::update( DB::raw("UPDATE transactionpins set pin=:pin WHERE userMail =:userMail"), array(
-        'userMail' => $userMail,
+        'userMail' => $userMail,'pin'=> $pin
       ));
 
       if($UpdateMailPin){
